@@ -1,3 +1,4 @@
 module.exports = {
-  mongoURI: "mongodb://localhost/users"
+  mongoURI: "mongodb://localhost/expressreactauth",
+  secretOrKey: "expressreactjwt"
 };
