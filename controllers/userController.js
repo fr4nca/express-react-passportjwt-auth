@@ -8,7 +8,7 @@ const keys = require("../config/keys");
 class UserController {
   // Register a user
   static async register(req, res, next) {
-    const { email, password, name } = req.body;
+    const { email, password, name, role } = req.body;
     try {
       const user = await User.findOne({ email });
       if (user) {
@@ -17,7 +17,8 @@ class UserController {
         const newUser = new User({
           name,
           email,
-          password
+          password,
+          role
         });
 
         bcrypt.genSalt(10, (err, salt) => {
@@ -54,7 +55,8 @@ class UserController {
         if (isMatch) {
           const payload = {
             id: user.id,
-            name: user.name
+            name: user.name,
+            role: user.role
           };
 
           jwt.sign(

@@ -14,6 +14,7 @@ import Dashboard from "./pages/Dashboard";
 import PrivateRoute from "./components/common/PrivateRoute";
 
 import "./App.css";
+import DashboardAdmin from "./pages/DashboardAdmin";
 
 if (localStorage.getItem("@ExpressReactAuthToken")) {
   setAuthToken(localStorage.getItem("@ExpressReactAuthToken"));
@@ -33,7 +34,18 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <Switch>
-            <PrivateRoute path="/" exact component={Dashboard} />
+            <PrivateRoute
+              allowed={["user", "admin"]}
+              path="/"
+              exact
+              component={Dashboard}
+            />
+            <PrivateRoute
+              allowed={["admin"]}
+              path="/admin"
+              exact
+              component={DashboardAdmin}
+            />
             <Route path="/login" exact component={Login} />
           </Switch>
         </Router>

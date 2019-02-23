@@ -3,6 +3,8 @@ const router = express.Router();
 
 const passport = require("passport");
 
+const checkUserRole = require("../../utils/checkUserRole");
+
 const UserController = require("../../controllers/userController");
 
 // @route   POST api/users/register
@@ -27,6 +29,7 @@ router.post("/login", UserController.login);
 router.get(
   "/current",
   passport.authenticate("jwt", { session: false }),
+  checkUserRole(["admin"]),
   UserController.current
 );
 
